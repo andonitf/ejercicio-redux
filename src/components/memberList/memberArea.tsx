@@ -10,29 +10,33 @@ interface Props {
 }
 
 export class MemberAreaComponent extends React.Component<Props> {
+
   constructor(props: Props) {
       super(props);
   }
 
   public render() {
+
+    const { members, loadMembers, onChange, organizationName} = this.props;
+
       return (
           <div>
-              <MemberTableComponent members={this.props.members} />
-              <br />
               <input
                   type="submit"
                   value="Buscar"
                   className="btn btn-default"
                   onClick={() =>
-                      this.props.loadMembers(this.props.organizationName)
+                      loadMembers(organizationName)
                   }
               />
-              <label>Organización:</label>
+              <label>Organización: </label>
               <input
                   type="text"
-                  value={this.props.organizationName}
-                  onChange={event => this.props.onChange(event.target.value)}
+                  value={organizationName}
+                  onChange={event => onChange(event.target.value)}
               />
+              <br />
+              <MemberTableComponent members={members} />
           </div>
       );
   }
