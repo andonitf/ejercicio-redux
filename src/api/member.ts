@@ -10,6 +10,7 @@ class MemberAPI {
     .then((response) => this.checkStatus(response))
     .then((response) => this.parseJSON(response))
     .then((data) => this.resolveMembers(data))
+    .catch(() => this.resolveMembers([]));
     }
 
   private checkStatus(response : Response) : Promise<Response> {

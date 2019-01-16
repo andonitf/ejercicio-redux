@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {MemberTableComponent} from './components/memberTable';
 import {MemberEntity} from '../../model/member'
+import { MemberCollectionComponent } from './components/memberCollection';
 
 interface Props {
   members: Array<MemberEntity>;
@@ -10,9 +10,17 @@ interface Props {
 }
 
 export class MemberAreaComponent extends React.Component<Props> {
-
+  
   constructor(props: Props) {
       super(props);
+
+      this.changeOrganization = this.changeOrganization.bind(this);
+  }
+
+
+  changeOrganization = (event) => {
+    this.props.onChange(event.target.value);
+    this.props.loadMembers(event.target.value);
   }
 
   public render() {
@@ -35,8 +43,16 @@ export class MemberAreaComponent extends React.Component<Props> {
                   value={organizationName}
                   onChange={event => onChange(event.target.value)}
               />
+
+              <select id="org" onChange={this.changeOrganization}>
+                  <option value=""></option>
+                  <option value="lemoncode">lemoncode</option>
+                  <option value="microsoft">microsoft</option>
+                  <option value="heroku">heroku</option>
+               </select>
+
               <br />
-              <MemberTableComponent members={members} />
+              <MemberCollectionComponent members={members} />
           </div>
       );
   }

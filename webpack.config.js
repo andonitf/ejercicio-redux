@@ -11,7 +11,7 @@ module.exports = {
     extensions: ['.js', '.ts', '.tsx']
   },
   entry: ['@babel/polyfill', 
-          './content/styles.css',
+          './content/styles.scss',
           './main.tsx'
          ],
   output: {
@@ -36,10 +36,14 @@ module.exports = {
           useBabel: true,
           "babelCore": "@babel/core", // needed for Babel v7
         },        
-      },    
+      },
       {
-        test: /\.css$/,        
-        use: [MiniCssExtractPlugin.loader, "css-loader"]
+        test: /\.scss$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          "css-loader",
+          "sass-loader",
+        ]
       },
       {
         test: /\.(png|jpg|gif|svg)$/,
