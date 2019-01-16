@@ -4,19 +4,36 @@ import {MemberEntity} from '../../model/member'
 
 interface Props {
   members: Array<MemberEntity>;
-  loadMembers: () => any;
+  loadMembers: (organizationName: string) => any;
+  onChange: (organizationName: string) => any;
+  organizationName: string;
 }
 
-export const MemberAreaComponent = (props : Props) => {
-  return (
-  <div>
-      <MemberTableComponent members={props.members}/>
-      <br/>
-      <input type="submit"
-              value="load"
-              className="btn btn-default"
-              onClick={() => props.loadMembers()}
-      />
-  </div>
-  );
+export class MemberAreaComponent extends React.Component<Props> {
+  constructor(props: Props) {
+      super(props);
+  }
+
+  public render() {
+      return (
+          <div>
+              <MemberTableComponent members={this.props.members} />
+              <br />
+              <input
+                  type="submit"
+                  value="Buscar"
+                  className="btn btn-default"
+                  onClick={() =>
+                      this.props.loadMembers(this.props.organizationName)
+                  }
+              />
+              <label>Organización:</label>
+              <input
+                  type="text"
+                  value={this.props.organizationName}
+                  onChange={event => this.props.onChange(event.target.value)}
+              />
+          </div>
+      );
+  }
 }
